@@ -414,6 +414,10 @@ def findLocalNeoForgeInstaller = {
 tasks.register('installNeoForge', JavaExec) {
     group = 'brush'
     description = 'Install the NeoForge host artifacts into the cache (once, before runNeoForgeClient)'
+    // ★ 必须有这条：installNeoForge 要用 --cache 下的 version json 与客户端 jar，而它们由 metadata 产出。
+    //   2026-10-16 JitPack 实测：全新机器上任务图里 installNeoForge 排在 metadata **之前**，
+    //   于是 harness 直接 FATAL「version json not found」并让整个构建失败。本机因缓存早已存在而没暴露。
+    dependsOn 'metadata'
     classpath = harnessClasspath
     mainClass = 'org.abstruck.brush.tools.NeoForgeHostHarness'
     jvmArgs = ['-Xmx2G']
