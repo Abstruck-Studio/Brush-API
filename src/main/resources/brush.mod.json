@@ -1,0 +1,22 @@
+{
+  "id": "brush-api",
+  "name": "Brush API",
+  "version": "1.0.0",
+  "description": "Brush API: the game-capability APIs (content registration / networking / creative tabs / HUD and input / screen events / keybinds) extracted from the loader core so the core keeps only loader duties. Phase C: networking's two injection points and keybinds moved here. 2026-10-15 (docs/26 section 7.7): the NETWORK ENGINE itself (BrushNetwork / BrushChannels / BrushPayload / ReplyGuard / DispatchDedupe) and the S3 payload bridge moved here too, keeping their original package names; the core only hands the host event bus over through host.HostSeams. Mods that use networking must compile against this mod (or the contract jar, which now includes these api classes).",
+  "authors": [
+    "Brush"
+  ],
+  "mixins": {
+    "brush": [
+      "brush-api.mixins.json"
+    ]
+  },
+  "entrypoints": {
+    "main": [
+      "org.abstruck.brush.api.impl.BrushApiMod"
+    ]
+  },
+  "depends": {
+    "brush": "^26.10.0"
+  }
+}
